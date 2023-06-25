@@ -12,4 +12,9 @@ export class CharacterFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  addCharacter(event : Event) {
+    event.preventDefault();
+    console.log("add character");
+  }
+
 }

@@ -12,4 +12,20 @@ export class CharactersListComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  getCharacters() {
+    console.log("characters got")
+  }
+  
+  getCharacter(id:number) {
+    console.log(id);
+  }
+
+  updateCharacter() {
+    console.log("edit element");
+  }
+  
+  deleteCharacter() {
+    console.log("delete element");
+  }
+
 }
