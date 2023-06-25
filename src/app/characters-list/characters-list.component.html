@@ -9,15 +9,17 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
+        <tr *ngFor="let character of characters; let indexOfelement=index;">
+            <th scope="row">{{ indexOfelement + 1}}</th>
+            <td>{{ character.name }}</td>
+            <td>{{ character.age }}</td>
+            <td>{{ character.colour }}</td>
             <td>
                 <button (click)="updateCharacter()" class="btn btn-warning btn-sm d-block mb-2">Edit character</button>
-                <button (click)="deleteCharacter()" class="btn btn-danger btn-sm">Delete character</button>
+                <button (click)="deleteCharacter(character._id )" class="btn btn-danger btn-sm">Delete character</button>
             </td>
         </tr>
     </tbody>
 </table>
+
+<app-loader *ngIf="loader"></app-loader>

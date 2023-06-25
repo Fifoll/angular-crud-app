@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Character } from '../character';
+import { CharacterServiceService } from '../character-service.service';
 
 @Component({
   selector: 'app-characters-list',
@@ -7,13 +9,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CharactersListComponent implements OnInit {
 
-  constructor() { }
+  characters : Character[] = [];
+
+  loader : boolean = false;
+
+  constructor(private service : CharacterServiceService) { }
 
   ngOnInit(): void {
+    this.getCharacters();
   }
 
   getCharacters() {
-    console.log("characters got")
+    this.service.getcharactersData().subscribe({
+      next: (data: Character[]) => {
+        this.loader = true;
+        this.characters = [];
+        data.forEach((element) => {
+          this.characters.push(element);
+        })
+      },
+      error: () => {
+        throw new Error("Can't download data, please check api configuration!")
+      },
+      complete: () => this.loader = false
+    })
   }
   
   getCharacter(id:number) {
@@ -24,8 +43,10 @@ export class CharactersListComponent implements OnInit {
     console.log("edit element");
   }
   
-  deleteCharacter() {
-    console.log("delete element");
+  deleteCharacter(id : string) {
+    this.service.deleteCharacter(id).subscribe({
+      complete: () => this.getCharacters()
+    })
   }
 
 }

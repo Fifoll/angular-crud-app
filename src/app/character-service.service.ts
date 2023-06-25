@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Character } from './character';
+import { Observable, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,23 +14,25 @@ export class CharacterServiceService {
 
   constructor(private http : HttpClient) { }
 
-  getcharactersData() {
-    return this.http.get(`${this.baseApiUrl}/${this.keyApi}/${this.characterName}`);
+  getcharactersData() : Observable<Character[]> {
+    return this.http.get(`${this.baseApiUrl}/${this.keyApi}/${this.characterName}`).pipe(
+      map((data : any) => data as Character[])
+    );
   }
 
-  getSingleCharacterData(id : number) {
+  getSingleCharacterData(id : string) {
     return this.http.get(`${this.baseApiUrl}/${this.keyApi}/${this.characterName}/${id}`);
   }
 
-  addCharacter(character : any) {
+  addCharacter(character : Character) {
     return this.http.post(`${this.baseApiUrl}/${this.keyApi}/${this.characterName}`, character);
   }
 
-  editCharacter(id: number, character : any) {
+  editCharacter(id: string, character : Character) {
     return this.http.put(`${this.baseApiUrl}/${this.keyApi}/${this.characterName}/${id}`, character);
   }
 
-  deleteCharacter(id: number) {
+  deleteCharacter(id: string) {
     return this.http.delete(`${this.baseApiUrl}/${this.keyApi}/${this.characterName}/${id}`);
   }
 
