@@ -43,10 +43,13 @@ export class CharactersListComponent implements OnInit {
     console.log("edit element");
   }
   
-  deleteCharacter(id : string) {
-    this.service.deleteCharacter(id).subscribe({
-      complete: () => this.getCharacters()
-    })
+  deleteCharacter(id: string | undefined) {
+    if (typeof id === 'string' && id !== undefined) {
+      this.service.deleteCharacter(id).subscribe({
+        complete: () => this.getCharacters()
+      });
+    }
   }
+  
 
 }
