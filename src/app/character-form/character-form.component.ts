@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Character } from '../character';
 import { CharacterServiceService } from '../character-service.service';
@@ -16,12 +16,14 @@ export class CharacterFormComponent implements OnInit {
     colour: ''
   };
 
+  @Output() characterAdded = new EventEmitter<Character>();
+
   constructor(private fb: FormBuilder, private service: CharacterServiceService) { }
 
   ngOnInit(): void {
     this.characterForm = this.fb.group({
       name: [''],
-      age: [0],
+      age: [],
       colour: ['']
     });
   }
@@ -30,8 +32,9 @@ export class CharacterFormComponent implements OnInit {
     event.preventDefault();
     this.newCharacter = this.characterForm.value;
     this.service.addCharacter(this.newCharacter).subscribe({
-      next: () => console.log("start"),
-      complete: () => console.log("added")
+      next: () => this.characterForm.reset(),
+      error: () => {throw new Error("Nie udało się dodać użytkownika")},
+      complete: () => this.characterAdded.emit(this.newCharacter)
     })
   }
 }

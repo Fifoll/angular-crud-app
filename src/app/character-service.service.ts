@@ -9,7 +9,7 @@ import { Observable, map } from 'rxjs';
 export class CharacterServiceService {
 
   private baseApiUrl = 'https://crudcrud.com/api';
-  private keyApi = '6c91c398b9e14b689efbe73731597326';
+  private keyApi = '0dcdf88700484785b92c7a150ca75c35';
   private characterName = "unicorns";
 
   constructor(private http : HttpClient) { }

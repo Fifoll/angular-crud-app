@@ -46,7 +46,8 @@ export class CharactersListComponent implements OnInit {
   deleteCharacter(id: string | undefined) {
     if (typeof id === 'string' && id !== undefined) {
       this.service.deleteCharacter(id).subscribe({
-        complete: () => this.getCharacters()
+        complete: () => this.getCharacters(),
+        error: () => {throw new Error("Nie udało się usąń bohatera")}
       });
     }
   }
