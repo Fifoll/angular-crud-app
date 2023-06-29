@@ -1,15 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Character } from './character';
-import { Observable, map } from 'rxjs';
+import { Observable, Subject, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CharacterServiceService {
 
+  private characterChangedSubject = new Subject<void>();
+  characterChanged$ = this.characterChangedSubject.asObservable();
+
   private baseApiUrl = 'https://crudcrud.com/api';
-  private keyApi = '89fca5f2b59741a386f5dcefe70829ce';
+  private keyApi = '4db1a2b2e04640aeacbc310a55647842';
   private characterName = "unicorns";
 
   constructor(private http : HttpClient) { }
@@ -36,6 +39,10 @@ export class CharacterServiceService {
 
   deleteCharacter(id: string) {
     return this.http.delete(`${this.baseApiUrl}/${this.keyApi}/${this.characterName}/${id}`);
+  }
+
+  emitCharacterChanged() {
+    this.characterChangedSubject.next();
   }
 
 }

@@ -17,7 +17,7 @@
             <td>{{ character.age }}</td>
             <td>{{ character.colour }}</td>
             <td>
-                <button (click)="deleteCharacter(character._id)" class="btn btn-danger btn-sm">Delete character</button>
+                <button (click)="deleteCharacter($event, character._id)" class="btn btn-danger btn-sm">Delete character</button>
             </td>
         </tr>
     </tbody>

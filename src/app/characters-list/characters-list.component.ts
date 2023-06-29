@@ -17,6 +17,11 @@ export class CharactersListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCharacters();
+
+    this.service.characterChanged$.subscribe(() => {
+      this.getCharacters();
+    });
+
   }
 
   getCharacters() {
@@ -35,19 +40,14 @@ export class CharactersListComponent implements OnInit {
     })
   }
   
-  getCharacter(id:number) {
-    console.log(id);
-  }
-
-  updateCharacter() {
-    console.log("edit element");
-  }
-  
-  deleteCharacter(id: string | undefined) {
+  deleteCharacter(event: Event, id: string | undefined) {
+    event.stopPropagation();
     if (typeof id === 'string' && id !== undefined) {
       this.service.deleteCharacter(id).subscribe({
-        complete: () => this.getCharacters(),
-        error: () => {throw new Error("Nie udało się usąń bohatera")}
+        error: () => {throw new Error("Nie udało się usąń bohatera")},
+        complete: () => {
+          this.getCharacters();
+        }
       });
     }
   }

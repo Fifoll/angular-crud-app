@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Character } from '../character';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { CharacterServiceService } from '../character-service.service';
@@ -20,8 +20,6 @@ export class CharacterDetailsComponent implements OnInit {
 
   characterForm!: FormGroup;
   loader: boolean = false;
-
-  @Output() characterAdded = new EventEmitter<Character>(); // to do
 
   constructor(private fb: FormBuilder, private service: CharacterServiceService, private route: ActivatedRoute) {}
 
@@ -48,7 +46,6 @@ export class CharacterDetailsComponent implements OnInit {
         },
         complete: () => { 
           this.loader = false; 
-          console.log(this.character);
           this.characterForm.patchValue({
             name: this.character.name,
             age: this.character.age,
@@ -66,11 +63,13 @@ export class CharacterDetailsComponent implements OnInit {
       this.character = this.characterForm.value;
 
       this.service.editCharacter(id, this.character).subscribe({
-        next: () => console.log(this.character),
         error: () => {
           throw new Error("can't edit character!")
         },
-        complete: () => this.characterAdded.emit(this.character)
+        complete: () => {
+          this.service.emitCharacterChanged();
+          this.getCharacter(this.route.snapshot.paramMap.get('id'));
+        }
       })
     }
   }
