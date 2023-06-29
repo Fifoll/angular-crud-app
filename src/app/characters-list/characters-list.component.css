@@ -1,0 +1,7 @@
+tr {
+    cursor: pointer;
+    transition: .3s;
+}
+tr:hover {
+    opacity: .8;
+}

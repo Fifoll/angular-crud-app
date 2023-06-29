@@ -7,18 +7,22 @@ import { AppComponent } from './app.component';
 import { CharactersListComponent } from './characters-list/characters-list.component';
 import { CharacterFormComponent } from './character-form/character-form.component';
 import { LoaderComponent } from './loader/loader.component';
+import { CharacterDetailsComponent } from './character-details/character-details.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     CharactersListComponent,
     CharacterFormComponent,
-    LoaderComponent
+    LoaderComponent,
+    CharacterDetailsComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

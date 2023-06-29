@@ -26,6 +26,7 @@ export class CharacterFormComponent implements OnInit {
       age: [],
       colour: ['']
     });
+    
   }
 
   addCharacter(event: Event) {

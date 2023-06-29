@@ -9,7 +9,7 @@ import { Observable, map } from 'rxjs';
 export class CharacterServiceService {
 
   private baseApiUrl = 'https://crudcrud.com/api';
-  private keyApi = '0dcdf88700484785b92c7a150ca75c35';
+  private keyApi = '89fca5f2b59741a386f5dcefe70829ce';
   private characterName = "unicorns";
 
   constructor(private http : HttpClient) { }
@@ -20,8 +20,10 @@ export class CharacterServiceService {
     );
   }
 
-  getSingleCharacterData(id : string) {
-    return this.http.get(`${this.baseApiUrl}/${this.keyApi}/${this.characterName}/${id}`);
+  getSingleCharacterData(id : string): Observable<Character> {
+    return this.http.get(`${this.baseApiUrl}/${this.keyApi}/${this.characterName}/${id}`).pipe(
+      map((data : any) => data as Character)
+    )
   }
 
   addCharacter(character : Character) {

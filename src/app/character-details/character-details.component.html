@@ -1,0 +1,23 @@
+
+<section class="mt-4 mb-4">
+  <div class="d-flex justify-content-between">
+    <h3 class="mb-1">Character details:</h3>
+    <button [routerLink]="'/'" class="btn btn-info">Ukryj</button>
+  </div>
+    <p class="mb-3">Character ID: {{ character._id }}</p>
+    <form [formGroup]="characterForm" (submit)="editCharacter($event, character._id)">
+        <div class="form-group mb-3">
+          <label class="mb-2" for="name-edit">Name</label>
+          <input type="text" class="form-control" id="name-edit" formControlName="name" value="{{ character.name }}">
+        </div>
+        <div class="form-group mb-3">
+          <label class="mb-2" for="age-edit">Age</label>
+          <input type="number" class="form-control" id="age-edit" formControlName="age" value="{{ character.age }}">
+        </div>
+        <div class="form-group mb-3">
+          <label class="mb-2" for="colour-edit">Colour</label>
+          <input type="text" class="form-control" id="colour-edit" formControlName="colour" value="{{ character.colour }}">
+        </div>
+        <button type="submit" class="btn btn-warning">Edit character</button>
+      </form>
+</section>
